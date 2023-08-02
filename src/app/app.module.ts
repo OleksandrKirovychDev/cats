@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeadersInterceptor } from './core/interceptors/headers.interceptor';
-
+import { HeaderComponent } from './core/header/header.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,6 +14,7 @@ import { HeadersInterceptor } from './core/interceptors/headers.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    HeaderComponent,
   ],
   providers: [
     {
