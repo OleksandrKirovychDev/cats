@@ -1,0 +1,13 @@
+<div class="cats-listing">
+  <div class="cats-listing__filters">
+    <app-slider></app-slider>
+    <app-dropdown></app-dropdown>
+  </div>
+  <div class="cats-listing__list" *ngIf="vm$ | async; else spinner">
+    listing
+  </div>
+</div>
+
+<ng-template #spinner><mat-spinner></mat-spinner></ng-template>
+
+<div *ngIf="error$ | async">Errrerere</div>
