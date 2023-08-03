@@ -3,4 +3,15 @@
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
+
+  &__list {
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 3.2rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+  }
 }

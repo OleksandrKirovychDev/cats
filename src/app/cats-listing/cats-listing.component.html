@@ -1,13 +1,18 @@
 <div class="cats-listing">
-  <div class="cats-listing__filters">
-    <app-slider></app-slider>
-    <app-dropdown></app-dropdown>
+  <app-filters
+    [catBreeds]="(catBreeds$ | async) || []"
+    [filtersForm]="filtersForm"
+    (search)="searchCats()"
+  ></app-filters>
+  <div
+    class="cats-listing__list"
+    *ngIf="catsImages$ | async as catsImages; else spinner"
+  >
+    <app-cat-card
+      *ngFor="let cat of catsImages || []"
+      [img]="cat.url"
+    ></app-cat-card>
   </div>
-  <div class="cats-listing__list" *ngIf="vm$ | async; else spinner">
-    listing
-  </div>
+  <ng-template #spinner><mat-spinner></mat-spinner></ng-template>
+  <div *ngIf="error$ | async as error">{{ error.message }}</div>
 </div>
-
-<ng-template #spinner><mat-spinner></mat-spinner></ng-template>
-
-<div *ngIf="error$ | async">Errrerere</div>

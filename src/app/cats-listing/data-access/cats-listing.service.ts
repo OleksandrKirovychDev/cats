@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, catchError, take, tap } from 'rxjs';
 
 import { ICatImage } from '../interfaces/cat-image.interface';
 import { ICatBreed } from '../interfaces/cat-breed.interface';
@@ -10,38 +10,32 @@ import { environment } from '../../../environments/environment.development';
   providedIn: 'root',
 })
 export class CatsListingService {
-  private _images$ = new BehaviorSubject<ICatImage[]>([]);
-  private _breeds$ = new BehaviorSubject<ICatBreed[]>([]);
+  private _error$ = new BehaviorSubject<HttpErrorResponse | null>(null);
 
-  public get images$() {
-    return this._images$.asObservable();
-  }
-
-  public get breeds$() {
-    return this._breeds$.asObservable();
+  public get error$() {
+    return this._error$.asObservable();
   }
 
   constructor(private http: HttpClient) {}
 
   public fetchImages(
-    breedId?: string,
-    limit?: number
-  ): Observable<ICatImage[]> {
-    let url = `${environment.API_LINK}/images/search`;
+    limit: number = 10,
+    breedId?: string
+  ): Observable<ICatImage[] | void> {
+    let url = `${environment.API_LINK}/images/search?limit=${limit}`;
 
-    if (limit) url += `?limit=${limit}`;
-    if (breedId) url += `?breed_ids=${breedId}`;
+    if (breedId) url += `&breed_ids=${breedId}`;
 
     return this.http
       .get<ICatImage[]>(url)
-      .pipe(tap((images) => this._images$.next(images)));
+      .pipe(catchError(async (err) => this._error$.next(err)));
   }
 
-  public fetchBreeds(): Observable<ICatBreed[]> {
+  public fetchBreeds(): Observable<ICatBreed[] | void> {
     let url = `${environment.API_LINK}/breeds`;
 
     return this.http
       .get<ICatBreed[]>(url)
-      .pipe(tap((breeds) => this._breeds$.next(breeds)));
+      .pipe(catchError(async (err) => this._error$.next(err)));
   }
 }

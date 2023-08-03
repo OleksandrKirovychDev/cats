@@ -1,6 +1,6 @@
 export interface ICatImage {
   id: string;
-  ulr: string;
+  url: string;
   width: number;
   height: number;
 }

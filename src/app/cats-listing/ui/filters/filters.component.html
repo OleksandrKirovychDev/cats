@@ -1,0 +1,15 @@
+<form class="filters" [formGroup]="filtersForm" (submit)="searchCats()">
+  <label>Limit: {{ slider.value }}</label>
+  <mat-slider min="1" max="30" step="1" class="filters__slider">
+    <input formControlName="limit" matSliderThumb #slider
+  /></mat-slider>
+  <mat-form-field>
+    <mat-label>Select breed</mat-label>
+    <mat-select formControlName="breed">
+      <mat-option *ngFor="let breed of catBreeds" [value]="breed.id">
+        {{ breed.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Search</button>
+</form>

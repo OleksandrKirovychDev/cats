@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SliderComponent } from './slider.component';
+import { CatCardComponent } from './cat-card.component';
 
-describe('SliderComponent', () => {
-  let component: SliderComponent;
-  let fixture: ComponentFixture<SliderComponent>;
+describe('CatCardComponent', () => {
+  let component: CatCardComponent;
+  let fixture: ComponentFixture<CatCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SliderComponent]
+      imports: [CatCardComponent]
     });
-    fixture = TestBed.createComponent(SliderComponent);
+    fixture = TestBed.createComponent(CatCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
